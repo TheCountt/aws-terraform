@@ -43,7 +43,7 @@ terraform {
     organization = "isaac-demo"
 
     workspaces {
-      name = "aws-terraform"
+      name = "aws-terraform/terraform"
     }
   }
 }
