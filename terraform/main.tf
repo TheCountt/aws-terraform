@@ -75,7 +75,7 @@ module "security" {
   private_subnets = [module.VPC.private_subnets-3, module.VPC.private_subnets-4]
 } */
 
-# The Module creates instances for jenkins, sonarqube abd jfrog
+# The Module creates instances for jenkins, sonarqube and jfrog
 module "compute" {
   source          = "./modules/compute"
   ami-jenkins     = var.ami-bastion
