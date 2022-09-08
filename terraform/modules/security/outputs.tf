@@ -1,9 +1,9 @@
-output "ALB-sg" {
+output "alb-sg" {
   value = aws_security_group.ACS["ext-alb-sg"].id
 }
 
 
-output "IALB-sg" {
+output "ialb-sg" {
   value = aws_security_group.ACS["int-alb-sg"].id
 }
 

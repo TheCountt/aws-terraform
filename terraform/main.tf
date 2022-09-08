@@ -1,6 +1,7 @@
-# creating VPC
-module "VPC" {
-  source                              = "./modules/VPC"
+# Module for network; This module will create all the neccessary resources for the entire project,
+#such as vpc, subnets, gateways and all neccssary things to enable proper connectivity
+module "network" {
+  source                              = "./modules/network"
   region                              = var.region
   vpc_cidr                            = var.vpc_cidr
   enable_dns_support                  = var.enable_dns_support
@@ -12,25 +13,39 @@ module "VPC" {
   public_subnets                      = [for i in range(2, 5, 2) : cidrsubnet(var.vpc_cidr, 8, i)]
 }
 
+
+# The module creates instances for various servers
+module "compute" {
+  source          = "./modules/compute"
+  ami-bastion     = var.ami-bastion
+  ami-nginx       = var.ami-nginx
+  ami-webserver   = var.ami-webserver
+  subnets-compute = module.network.public_subnets-1
+  sg-compute      = [module.security.compute-sg]
+  keypair         = var.keypair
+}
+
+# The module creates security group for instances
+module "security" {
+  source = "./modules/security"
+  vpc_id = module.network.vpc_id
+}
+
 #Module for Application Load balancer, this will create Extenal Load balancer and internal load balancer
 /* module "ALB" {
   source             = "./modules/ALB"
   name               = "ACS-ext-alb"
-  vpc_id             = module.VPC.vpc_id
-  public-sg          = module.security.ALB-sg
-  private-sg         = module.security.IALB-sg
-  public-sbn-1       = module.VPC.public_subnets-1
-  public-sbn-2       = module.VPC.public_subnets-2
-  private-sbn-1      = module.VPC.private_subnets-1
-  private-sbn-2      = module.VPC.private_subnets-2
+  vpc_id             = module.network.vpc_id
+  public-sg          = module.security.alb-sg
+  private-sg         = module.security.ialb-sg
+  public-sbn-1       = module.network.public_subnets-1
+  public-sbn-2       = module.network.public_subnets-2
+  private-sbn-1      = module.network.private_subnets-1
+  private-sbn-2      = module.network.private_subnets-2
   load_balancer_type = "application"
   ip_address_type    = "ipv4"
 } */
 
-module "security" {
-  source = "./modules/Security"
-  vpc_id = module.VPC.vpc_id
-}
 
 
 /* module "AutoScaling" {
@@ -67,21 +82,8 @@ module "security" {
 
 # RDS module; this module will create the RDS instance in the private subnet
 
-/* module "RDS" {
-  source          = "./modules/RDS"
-  db-password     = var.master-password
-  db-username     = var.master-username
+module "rds" {
+  source          = "./modules/rds"
   db-sg           = [module.security.datalayer-sg]
-  private_subnets = [module.VPC.private_subnets-3, module.VPC.private_subnets-4]
-} */
-
-# The Module creates instances for jenkins, sonarqube and jfrog
-module "compute" {
-  source          = "./modules/compute"
-  ami-jenkins     = var.ami-bastion
-  ami-sonar       = var.ami-sonar
-  ami-jfrog       = var.ami-bastion
-  subnets-compute = module.VPC.public_subnets-1
-  sg-compute      = [module.security.compute-sg]
-  keypair         = var.keypair
+  private_subnets = [module.network.private_subnets-3, module.network.private_subnets-4]
 }

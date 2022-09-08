@@ -28,15 +28,6 @@ resource "aws_security_group_rule" "inbound-bastion-ssh-compute" {
   security_group_id = aws_security_group.ACS["compute-sg"].id
 }
 
-resource "aws_security_group_rule" "inbound-port-artifactory" {
-  from_port         = 8081
-  protocol          = "tcp"
-  to_port           = 8081
-  type              = "ingress"
-  cidr_blocks       = ["0.0.0.0/0"]
-  security_group_id = aws_security_group.ACS["compute-sg"].id
-}
-
 resource "aws_security_group_rule" "inbound-port-jenkins" {
   from_port         = 8080
   protocol          = "tcp"
@@ -46,7 +37,7 @@ resource "aws_security_group_rule" "inbound-port-jenkins" {
   security_group_id = aws_security_group.ACS["compute-sg"].id
 }
 
-resource "aws_security_group_rule" "inbound-port-sonarqube" {
+/* resource "aws_security_group_rule" "inbound-port-sonarqube" {
   from_port         = 9000
   protocol          = "tcp"
   to_port           = 9000
@@ -54,6 +45,15 @@ resource "aws_security_group_rule" "inbound-port-sonarqube" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ACS["ext-alb-sg"].id
 }
+
+resource "aws_security_group_rule" "inbound-port-artifactory" {
+  from_port         = 8081
+  protocol          = "tcp"
+  to_port           = 8081
+  type              = "ingress"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ACS["compute-sg"].id
+} */
 
 # security group rule for bastion to allow assh access fro your local machine
 resource "aws_security_group_rule" "inbound-ssh-bastion" {
@@ -66,7 +66,7 @@ resource "aws_security_group_rule" "inbound-ssh-bastion" {
 }
 
 
-# security group for nginx reverse proxy, to allow access only from the extaernal load balancer and bastion instance
+# security group for nginx reverse proxy, to allow access only from the external load balancer and bastion instance
 
 resource "aws_security_group_rule" "inbound-nginx-http" {
   type                     = "ingress"
@@ -89,7 +89,7 @@ resource "aws_security_group_rule" "inbound-bastion-ssh" {
 
 
 
-# security group for ialb, to have acces only from nginx reverser proxy server
+# security group for ialb, to have acces only from nginx reverse proxy server
 
 resource "aws_security_group_rule" "inbound-ialb-https" {
   type                     = "ingress"
@@ -124,7 +124,7 @@ resource "aws_security_group_rule" "inbound-web-ssh" {
 
 
 
-# security group for datalayer to alow traffic from websever on nfs and mysql port and bastiopn host on mysql port
+# security group for datalayer to allow traffic from webserver on efs and mysql port and bastiopn host on mysql port
 resource "aws_security_group_rule" "inbound-nfs-port" {
   type                     = "ingress"
   from_port                = 2049

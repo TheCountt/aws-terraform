@@ -25,10 +25,6 @@ ami-nginx = "ami-0ea109604ddcb2c90"
 
 keypair = "devops"
 
-master-password = "demoproject"
-
-master-username = "demo"
-
 account_no = "696742900004"
 
 tags = {
