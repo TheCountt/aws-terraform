@@ -16,7 +16,7 @@ preferred_number_of_private_subnets = 4
 
 environment = "dev"
 
-ami-web = "ami-02c95bd60862a1681"
+ami-webserver = "ami-02c95bd60862a1681"
 
 ami-bastion = "ami-007810479c053de66"
 

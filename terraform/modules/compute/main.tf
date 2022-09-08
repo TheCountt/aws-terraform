@@ -1,6 +1,6 @@
 # create instance for jenkins
-resource "aws_instance" "jenkins" {
-  ami                         = var.ami-jenkins
+resource "aws_instance" "bastion" {
+  ami                         = var.ami-bastion
   instance_type               = "t2.micro"
   subnet_id                   = var.subnets-compute
   vpc_security_group_ids      = var.sg-compute
@@ -10,13 +10,13 @@ resource "aws_instance" "jenkins" {
  tags = merge(
     var.tags,
     {
-      Name = "ACS-jenkins"
+      Name = "ACS-bastion"
     },
   )
 }
 
 
-#create instance for sonarqube
+/* #create instance for sonarqube
 resource "aws_instance" "sonarqube" {
   ami                         = var.ami-sonar
   instance_type               = "t2.medium"
@@ -32,9 +32,9 @@ resource "aws_instance" "sonarqube" {
       Name = "ACS-sonarqube"
     },
   )
-}
+} */
 
-# create instance for artifactory
+/* # create instance for artifactory
 resource "aws_instance" "artifactory" {
   ami                         = var.ami-jfrog
   instance_type               = "t2.medium"
@@ -50,4 +50,4 @@ resource "aws_instance" "artifactory" {
       Name = "ACS-artifactory"
     },
   )
-}
+} */

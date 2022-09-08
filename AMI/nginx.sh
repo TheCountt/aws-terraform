@@ -1,9 +1,10 @@
 #!/bin/bash
-sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-sudo yum install -y dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm 
-sudo yum install -y mysql wget vim telnet htop git python3 net-tools 
-sudo systemctl start chronyd
-sudo systemctl enable chronyd
+sudo yum install  https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -y
+sudo yum install htop -y
+sudo yum install dnf-utils http://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
+sudo yum update -y
+sudo yum install mysql wget vim telnet chrony git python3 net-tools -y
+
 
 # selinux config
 sudo setsebool -P httpd_can_network_connect=1
@@ -21,5 +22,4 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/privat
 -subj "/C=UK/ST=London/L=London/O=demo.io/OU=devops/CN=$(curl -s http://169.254.169.254/latest/meta-data/local-hostname)"
 
 sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-
 
