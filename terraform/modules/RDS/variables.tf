@@ -1,14 +1,3 @@
-variable "db-username" {
-  type        = string
-  description = "The master user name"
-}
-
-
-variable "db-password" {
-  type        = string
-  description = "Master password"
-}
-
 variable "db-sg" {
   type = list
   description = "The DB security group"

@@ -6,10 +6,12 @@ resource "aws_db_subnet_group" "ACS-rds" {
   tags = merge(
     var.tags,
     {
-      Name = "ACS-database"
+      Name = "ACS-dbsubnet-group"
     },
   )
 }
+
+
 
 # create the RDS instance with the subnets group
 resource "aws_db_instance" "ACS-rds" {
@@ -19,11 +21,17 @@ resource "aws_db_instance" "ACS-rds" {
   engine_version         = "5.7"
   instance_class         = "db.t2.micro"
   name                   = "demodb"
-  username               = var.db-username
-  password               = var.db-password
+  username             = local.db_secret.username
+  password             = local.db_secret.password
   parameter_group_name   = "default.mysql5.7"
   db_subnet_group_name   = aws_db_subnet_group.ACS-rds.name
   skip_final_snapshot    = true
   vpc_security_group_ids = var.db-sg
   multi_az               = "true"
+  tags = merge(
+    var.tags,
+    {
+      Name = "ACS-dbsubnet-group"
+    },
+  )
 }

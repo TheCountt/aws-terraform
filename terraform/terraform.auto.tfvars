@@ -22,7 +22,6 @@ ami-bastion = "ami-007810479c053de66"
 
 ami-nginx = "ami-0ea109604ddcb2c90"
 
-ami-sonar = "ami-05b609d882960e1fb"
 
 keypair = "devops"
 
