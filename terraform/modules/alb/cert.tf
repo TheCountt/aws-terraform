@@ -1,7 +1,7 @@
 # The entire section create a certiface, public zone, and validate the certificate using DNS method
 
 # Create the certificate using a wildcard for all the domains created in demo.toolingtodo.com
-resource "aws_acm_certificate" "project_demo" {
+resource "aws_acm_certificate" "project_demo_cert" {
   domain_name       = "*.demo.toolingtodo.com"
   validation_method = "DNS"
 }
@@ -15,7 +15,7 @@ data "aws_route53_zone" "project_demo_zone" {
 # selecting validation method
 resource "aws_route53_record" "project_demo_record" {
   for_each = {
-    for dvo in aws_acm_certificate.project_demo.domain_validation_options : dvo.domain_name => {
+    for dvo in aws_acm_certificate.project_demo_cert.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type

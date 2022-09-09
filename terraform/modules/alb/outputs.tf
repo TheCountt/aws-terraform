@@ -4,7 +4,7 @@ output "alb_dns_name" {
 }
 
 output "nginx-tgt" {
-  description = "External Load balancaer target group"
+  description = "External Load balancer target group"
   value       = aws_lb_target_group.nginx-tgt.arn
 }
 

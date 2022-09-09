@@ -32,8 +32,8 @@ module "security" {
 }
 
 #Module for Application Load balancer, this will create Extenal Load balancer and internal load balancer
-/* module "ALB" {
-  source             = "./modules/ALB"
+module "alb" {
+  source             = "./modules/alb"
   name               = "ACS-ext-alb"
   vpc_id             = module.network.vpc_id
   public-sg          = module.security.alb-sg
@@ -44,13 +44,13 @@ module "security" {
   private-sbn-2      = module.network.private_subnets-2
   load_balancer_type = "application"
   ip_address_type    = "ipv4"
-} */
+}
 
 
 
-/* module "AutoScaling" {
-  source            = "./modules/Autoscaling"
-  ami-web           = var.ami-web
+module "autoscaling" {
+  source            = "./modules/autoscaling"
+  ami-webserver     = var.ami-webserver
   ami-bastion       = var.ami-bastion
   ami-nginx         = var.ami-nginx
   desired_capacity  = 1
@@ -59,26 +59,26 @@ module "security" {
   web-sg            = [module.security.web-sg]
   bastion-sg        = [module.security.bastion-sg]
   nginx-sg          = [module.security.nginx-sg]
-  wordpress-alb-tgt = module.ALB.wordpress-tgt
-  nginx-alb-tgt     = module.ALB.nginx-tgt
-  tooling-alb-tgt   = module.ALB.tooling-tgt
-  instance_profile  = module.VPC.instance_profile
-  public_subnets    = [module.VPC.public_subnets-1, module.VPC.public_subnets-2]
-  private_subnets   = [module.VPC.private_subnets-1, module.VPC.private_subnets-2]
+  wordpress-alb-tgt = module.alb.wordpress-tgt
+  nginx-alb-tgt     = module.alb.nginx-tgt
+  tooling-alb-tgt   = module.alb.tooling-tgt
+  instance_profile  = module.network.instance_profile
+  public_subnets    = [module.network.public_subnets-1, module.network.public_subnets-2]
+  private_subnets   = [module.network.private_subnets-1, module.network.private_subnets-2]
   keypair           = var.keypair
 
-} */
+}
 
 # Module for Elastic Filesystem; this module will creat elastic file system isn the webservers availablity
 # zone and allow traffic fro the webservers
 
-/* module "EFS" {
-  source       = "./modules/EFS"
-  efs-subnet-1 = module.VPC.private_subnets-1
-  efs-subnet-2 = module.VPC.private_subnets-2
+module "efs" {
+  source       = "./modules/efs"
+  efs-subnet-1 = module.network.private_subnets-1
+  efs-subnet-2 = module.network.private_subnets-2
   efs-sg       = [module.security.datalayer-sg]
   account_no   = var.account_no
-} */
+}
 
 # RDS module; this module will create the RDS instance in the private subnet
 

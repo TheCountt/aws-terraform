@@ -38,7 +38,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
 #   }
 # }
 
-/* terraform {
+terraform {
   backend "remote" {
     organization = "isaac-demo"
 
@@ -46,4 +46,4 @@ resource "aws_dynamodb_table" "terraform_locks" {
       name = "aws-terraform/terraform"
     }
   }
-} */
+}

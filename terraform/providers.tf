@@ -4,4 +4,4 @@ provider "aws" {
 
 provider "tls" {}
 
-provider "vault" {}
+/* provider "vault" {} */

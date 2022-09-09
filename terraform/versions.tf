@@ -9,8 +9,8 @@ terraform {
       source  = "hashicorp/tls"
       version = ">=3.1.0"
     }
-    vault = {
+    /* vault = {
         source = "hashicorp/vault"
-    }
+    } */
   }
 }

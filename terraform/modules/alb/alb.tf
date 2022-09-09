@@ -7,14 +7,13 @@ resource "aws_lb" "ext-alb" {
   internal        = false
   security_groups = [var.public-sg]
 
-  subnets = [var.public-sbn-1,
-  var.public-sbn-2, ]
+  subnets = [var.public-sbn-1, var.public-sbn-2]
 
   tags = merge(
     var.tags,
     {
       Name = var.name
-    },
+    }
   )
 
   ip_address_type    = var.ip_address_type
@@ -64,8 +63,7 @@ resource "aws_lb" "ialb" {
 
   security_groups = [var.private-sg]
 
-  subnets = [var.private-sbn-1,
-  var.private-sbn-2, ]
+  subnets = [var.private-sbn-1, var.private-sbn-2 ]
 
     tags = merge(
     var.tags,
@@ -154,17 +152,4 @@ resource "aws_lb_listener_rule" "tooling-listener" {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
