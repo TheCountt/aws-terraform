@@ -4,13 +4,23 @@
 resource "aws_acm_certificate" "project_demo_cert" {
   domain_name       = "*.demo.toolingtodo.com"
   validation_method = "DNS"
+
+  tags = {
+      Name = "ACS-certificate"
+    }
 }
 
+# creating a public hosted zone
+resource "aws_route53_zone" "project_demo_zone" {
+  name  = "demo.toolingtodo.com"
+}
+
+
 # calling the hosted zone
-data "aws_route53_zone" "project_demo_zone" {
+/* data "aws_route53_zone" "project_demo_zone" {
   name         = "demo.toolingtodo.com"
   private_zone = false
-}
+} */
 
 # selecting validation method
 resource "aws_route53_record" "project_demo_record" {
@@ -27,7 +37,7 @@ resource "aws_route53_record" "project_demo_record" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = data.aws_route53_zone.project_demo_zone.zone_id
+  zone_id         = aws_route53_zone.project_demo_zone.zone_id
 }
 
 # validate the certificate through DNS method
@@ -38,7 +48,7 @@ resource "aws_acm_certificate_validation" "project_demo_validation" {
 
 # create records for tooling
 resource "aws_route53_record" "tooling" {
-  zone_id = data.aws_route53_zone.project_demo_zone.zone_id
+  zone_id = aws_route53_zone.project_demo_zone.zone_id
   name    = "tooling.demo.toolingtodo.com"
   type    = "A"
 
@@ -52,7 +62,7 @@ resource "aws_route53_record" "tooling" {
 
 # create records for wordpress
 resource "aws_route53_record" "wordpress" {
-  zone_id = data.aws_route53_zone.project_demo_zone.zone_id
+  zone_id = aws_route53_zone.project_demo_zone.zone_id
   name    = "wordpress.demo.toolingtodo.com"
   type    = "A"
 
