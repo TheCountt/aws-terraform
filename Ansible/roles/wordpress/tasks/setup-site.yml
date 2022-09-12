@@ -3,7 +3,6 @@
     url: http://wordpress.org/latest.tar.gz
     dest: /home/ec2-user/latest.tar.gz
     
-
 - name: unzip the compressed file
   ansible.builtin.unarchive:
     src: latest.tar.gz

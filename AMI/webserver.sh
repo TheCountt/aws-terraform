@@ -6,8 +6,10 @@ sudo yum update -y
 sudo yum install mysql wget vim telnet chrony git python3 net-tools -y
 sudo yum module reset php -y
 sudo yum module enable php:remi-7.4 -y
-sudo yum install php php-opcache php-gd php-curl php-mysqlnd -y
+sudo yum install php php-common php-xml php-json php-mbstring php-opcache php-gd php-curl php-mysqlnd -y
 
+# install apache
+sudo dnf install httpd -y
 
 # selinux config
 sudo setsebool -P httpd_can_network_connect=1
@@ -44,3 +46,6 @@ sudo sed -i 's/localhost.key/ACS.key/g'  /etc/httpd/conf.d/ssl.conf
 #start and enable php-fpm
 sudo systemctl start php-fpm
 sudo systemctl enable php-fpm
+
+sudo systemctl start httpd
+sudo systemctl enable httpd

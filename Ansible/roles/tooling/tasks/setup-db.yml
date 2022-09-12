@@ -23,5 +23,6 @@
     - { regexp: '^admin', line: "demo" }
     - { regexp: '^tooling', line: "toolingdb" }
     - { regexp: '^admin', line: "demoproject" }
+  notify: Restart httpd
 
 
