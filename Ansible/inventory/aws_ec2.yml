@@ -13,9 +13,9 @@ keyed_groups:
 filters:
   tag:Name:
     - ACS-bastion
-    - ACS-nginx
     - ACS-tooling
     - ACS-wordpress
+    - ACS-nginx
 
   instance-state-name : running
   
