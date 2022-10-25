@@ -31,7 +31,7 @@ administrator = ["susan", "celtigar"]
 developer = ["pat", "ren"]
 
 developer_policies = ["AmazonEC2FullAccess", "AmazonRDSFullAccess", "AmazonEKSClusterPolicy", 
-"AmazonEKSWorkerNodePolicy"]
+"AmazonEKSWorkerNodePolicy", "AmazonEC2ContainerRegistryReadOnly", "AmazonEKS_CNI_Policy"]
 
 tags = {
   Owner-Email     = "demo.io"
