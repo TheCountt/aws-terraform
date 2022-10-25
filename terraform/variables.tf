@@ -63,3 +63,18 @@ variable "account_no" {
   type        = number
   description = "the account number"
 }
+
+variable "administrator" {
+  type        = list(string)
+  description = "name of cloud administrators"
+}
+
+variable "developer" {
+  type        = list(string)
+  description = "name of developers"
+}
+
+variable "developer_policies" {
+  type  = list(string)
+  description = "policies definining developer access and permissions"
+}

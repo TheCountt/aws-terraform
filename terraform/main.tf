@@ -1,6 +1,6 @@
 # Module for network; This module will create all the neccessary resources for the entire project,
 #such as vpc, subnets, gateways and all neccssary things to enable proper connectivity
-module "network" {
+/* module "network" {
   source                              = "./modules/network"
   region                              = var.region
   vpc_cidr                            = var.vpc_cidr
@@ -44,11 +44,11 @@ module "alb" {
   private-sbn-2      = module.network.private_subnets-2
   load_balancer_type = "application"
   ip_address_type    = "ipv4"
-}
+} */
 
 
 
-module "autoscaling" {
+/* module "autoscaling" {
   source            = "./modules/autoscaling"
   ami-webserver     = var.ami-webserver
   ami-bastion       = var.ami-bastion
@@ -67,12 +67,12 @@ module "autoscaling" {
   private_subnets   = [module.network.private_subnets-1, module.network.private_subnets-2]
   keypair           = var.keypair
 
-}
+} */
 
 # Module for Elastic Filesystem; this module will creat elastic file system isn the webservers availablity
 # zone and allow traffic fro the webservers
 
-module "efs" {
+/* module "efs" {
   source       = "./modules/efs"
   efs-subnet-1 = module.network.private_subnets-1
   efs-subnet-2 = module.network.private_subnets-2
@@ -86,4 +86,4 @@ module "rds" {
   source          = "./modules/rds"
   db-sg           = [module.security.datalayer-sg]
   private_subnets = [module.network.private_subnets-3, module.network.private_subnets-4]
-}
+} */

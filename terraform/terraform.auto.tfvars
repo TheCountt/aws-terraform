@@ -22,10 +22,16 @@ ami-bastion = "ami-007810479c053de66"
 
 ami-nginx = "ami-0ea109604ddcb2c90"
 
-
 keypair = "devops"
 
 account_no = "696742900004"
+
+administrator = ["susan", "celtigar"]
+
+developer = ["pat", "ren"]
+
+developer_policies = ["AmazonEC2FullAccess", "AmazonRDSFullAccess", "AmazonEKSClusterPolicy", 
+"AmazonEKSWorkerNodePolicy"]
 
 tags = {
   Owner-Email     = "demo.io"
