@@ -2,6 +2,6 @@ provider "aws" {
   region = var.region
 }
 
-provider "tls" {}
+# provider "tls" {}
 
-/* provider "vault" {} */
+# provider "vault" {}

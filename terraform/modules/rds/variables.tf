@@ -1,11 +1,12 @@
 variable "db-sg" {
-  type = list
   description = "The DB security group"
+  type = string
+  default = ""
 }
 
 variable "private_subnets" {
   type        = list
-  description = "Private subnets fro DB subnets group"
+  description = "Private subnets from DB subnets group"
 }
 
 

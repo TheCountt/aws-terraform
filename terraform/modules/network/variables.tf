@@ -1,5 +1,4 @@
-variable "region" {
-}
+variable "region" {}
 
 variable "vpc_cidr" {
   type = string
@@ -12,11 +11,6 @@ variable "enable_dns_support" {
 variable "enable_dns_hostnames" {
   type = bool
 }
-
-variable "enable_classiclink" {
-  type = bool
-}
-
 
 variable "preferred_number_of_public_subnets" {
   type = number
@@ -48,6 +42,4 @@ variable "name" {
   default = "ACS"
 
 }
-variable "environment" {
-  default = "true"
-}
+variable "environment" {}
